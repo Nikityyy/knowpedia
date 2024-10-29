@@ -197,7 +197,7 @@ def index():
         </div>
     </div>
     <footer class="footer">
-        <a href="github.com/nikityyy/knowpedia" target="_blank">GitHub</a>
+        <a href="https://github.com/nikityyy/knowpedia" target="_blank">GitHub</a>
         <a href="mailto:bergernikita1807@gmail.com">Contact</a>
     </footer>
 
