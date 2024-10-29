@@ -137,6 +137,11 @@ def index():
         .content-text h1 {
             font-size: 24px;
         }
+        @media (max-width: 768px) {
+          #contentContainer {
+            width: 100%;
+          }
+        }
     </style>
 </head>
 <body>
