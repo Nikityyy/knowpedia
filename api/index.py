@@ -1,26 +1,12 @@
 from flask import Flask, render_template, request, jsonify, send_file
 import os
 import warnings
-from functools import wraps
 import traceback
 import google.generativeai as genai
 
 warnings.filterwarnings('ignore')
 
 app = Flask(__name__)
-
-def error_handler(f):
-    @wraps(f)
-    def decorated_function(*args, **kwargs):
-        try:
-            return f(*args, **kwargs)
-        except Exception as e:
-            print(f"Error in {f.__name__}: {str(e)}\n{traceback.format_exc()}")
-            return jsonify({
-                "status": "error",
-                "message": f"An error occurred: {str(e)}"
-            }), 500
-    return decorated_function
 
 genai.configure(api_key=os.environ["GEMINI_API_KEY"])
 def generate_llm_content_google(prompt, system_prompt="Only answer with the output, no other text before or after the output."):
@@ -38,7 +24,6 @@ def index():
     return render_template('index.html')
 
 @app.route('/generate', methods=['POST'])
-@error_handler
 def generate_content():
     if not request.is_json:
         return jsonify({"status": "error", "message": "Content-Type must be application/json"}), 400
