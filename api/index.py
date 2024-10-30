@@ -56,7 +56,7 @@ def index():
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100svh;
+            min-height: 100svh;
             margin: 0;
             background-color: #f8f9fa;
             overflow-x: hidden;
