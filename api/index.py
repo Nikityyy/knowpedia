@@ -266,6 +266,14 @@ def index():
       #pdf2 {
         display: none;
       }
+	  
+      .support.hover-underline-animation::after  {
+        height: 2px;
+      }
+	  
+	  .support {
+		font-weight: bold;
+	  }
 
       @media (max-width: 768px) {
         #contentContainer {
@@ -344,6 +352,7 @@ def index():
     </div>
     <footer class="footer">
       <a class="hover-underline-animation" href="https://github.com/nikityyy/knowpedia" target="_blank">GitHub</a>
+	  <a class="hover-underline-animation support" href="https://buymeacoffee.com/nikity" target="_blank">Support me</a>
       <a class="hover-underline-animation" href="mailto:bergernikita1807@gmail.com">Contact</a>
     </footer>
     <script>
