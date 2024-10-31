@@ -28,7 +28,7 @@ def index():
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Knowledge Is Power</title>
-    <link rel="icon" href="https://files.catbox.moe/uu2re7.png" />
+    <link rel="icon" href="https://files.catbox.moe/t7lp7o.webp" />
     <meta name="description" content="Knowpedia: Your ultimate knowledge source. A better, more accurate, and user-friendly alternative to Wikipedia. Find reliable information, in-depth articles, and curated facts across a wide range of topics, all in one place." />
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Knowledge Is Power">
