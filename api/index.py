@@ -11,7 +11,7 @@ app = Flask(__name__)
 genai.configure(api_key=os.environ["GEMINI_API_KEY"])
 def generate_llm_content_google(prompt, system_prompt="Only answer with the output, no other text before or after the output."):
     try:
-        model = genai.GenerativeModel('gemini-1.5-flash-8b', system_instruction=system_prompt)
+        model = genai.GenerativeModel('gemini-2.0-flash-lite-preview-02-05', system_instruction=system_prompt)
         response = model.generate_content(prompt)
         return response.text.strip()
         
