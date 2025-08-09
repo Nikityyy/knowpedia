@@ -3,6 +3,7 @@ import os
 import warnings
 import traceback
 import google.generativeai as genai
+from google.genai import types
 
 warnings.filterwarnings('ignore')
 
