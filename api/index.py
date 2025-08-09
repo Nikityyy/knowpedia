@@ -35,7 +35,7 @@ def generate_llm_content_google(prompt, system_prompt="Only answer with the outp
             ),
         )
         
-        response = client.model.generate_content(prompt, config=generate_content_config)
+        response = client.models.generate_content(model=model, contents=contents, config=generate_content_config)
         return response.text.strip()
         
     except Exception as e:
