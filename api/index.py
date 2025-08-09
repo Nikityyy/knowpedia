@@ -11,8 +11,13 @@ app = Flask(__name__)
 genai.configure(api_key=os.environ["GEMINI_API_KEY"])
 def generate_llm_content_google(prompt, system_prompt="Only answer with the output, no other text before or after the output."):
     try:
-        model = genai.GenerativeModel('gemini-2.0-flash-lite-preview-02-05', system_instruction=system_prompt)
-        response = model.generate_content(prompt)
+        model = genai.GenerativeModel('gemini-2.5-flash-lite', system_instruction=system_prompt)
+		generate_content_config = types.GenerateContentConfig(
+	        thinking_config = types.ThinkingConfig(
+	            thinking_budget=0,
+	        ),
+	    )
+        response = model.generate_content(prompt, config=generate_content_config)
         return response.text.strip()
         
     except Exception as e:
@@ -498,8 +503,30 @@ def generate_content():
         return jsonify({"status": "error", "message": "Topic is required"}), 400
 
     try:
-        text_prompt = f"Compose a thorough, informative text about '{topic}' that presents the subject neutrally and factually. Include essential details, background information, and any key components or related concepts for a well-rounded explanation. Add a title. Answer in the same langauge as '{topic}' is written in. Structure the text in Markdown format to enhance readability."
-        text = generate_llm_content_google(text_prompt)
+        text_prompt = f"""
+		You are writing an encyclopedic article for a Wikipedia-style knowledge base called "Knowpedia."
+		Your goal is to produce a clear, factual, and neutral article about the topic: "{topic}".
+		
+		Follow these rules:
+		1. **Language** – Write entirely in the same language as the topic is provided in. If the topic is in multiple languages, use the dominant one.
+		2. **Tone** – Neutral, formal, and precise. Avoid opinions, speculation, or promotional language.
+		3. **Structure** – Use Markdown with:
+		   - A top-level heading (#) for the article title (exact topic name).
+		   - An introductory paragraph summarizing the topic in 2–4 sentences.
+		   - 2–6 thematic sections (##) covering:
+		     - Overview / Definition
+		     - History or Origin (if applicable)
+		     - Key Concepts, Components, or Features
+		     - Related Topics or Impact
+		     - Controversies / Criticism (if notable)
+		   - A **See also** section with bullet-pointed related topics.
+		4. **Content** – Present verified, widely accepted information first. If disputed views exist, describe them with attribution.
+		5. **Formatting** – Use lists, tables, or bold keywords when they improve clarity. No excessive formatting.
+		6. **Length** – Aim for the depth of a standard Wikipedia article for a mid-sized topic (roughly 500–1000 words).
+		
+		Return only the Markdown-formatted article, without any extra commentary or system notes.
+		"""
+		text = generate_llm_content_google(text_prompt)
 
         response = {
             "status": "success",
