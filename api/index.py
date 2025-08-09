@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, jsonify, send_file
 import os
 import warnings
 import traceback
-import google.generativeai as genai
+import google as genai
 from google.genai import types
 
 warnings.filterwarnings('ignore')
