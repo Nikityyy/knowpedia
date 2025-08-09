@@ -2,23 +2,40 @@ from flask import Flask, render_template, request, jsonify, send_file
 import os
 import warnings
 import traceback
-import google as genai
+from google import genai
 from google.genai import types
 
 warnings.filterwarnings('ignore')
 
 app = Flask(__name__)
 
-genai.configure(api_key=os.environ["GEMINI_API_KEY"])
+client = genai.Client(
+    api_key=os.environ.get("GEMINI_API_KEY"),
+)
 def generate_llm_content_google(prompt, system_prompt="Only answer with the output, no other text before or after the output."):
     try:
-        model = genai.GenerativeModel('gemini-2.5-flash-lite', system_instruction=system_prompt)
+        model = "gemini-2.5-flash-lite"
+        contents = [
+            types.Content(
+                role="model",
+                parts=[
+                    types.Part.from_text(text=system_prompt),
+                ],
+            ),
+            types.Content(
+                role="user",
+                parts=[
+                    types.Part.from_text(text=prompt),
+                ],
+            ),
+        ]
         generate_content_config = types.GenerateContentConfig(
-	        thinking_config = types.ThinkingConfig(
-	            thinking_budget=0,
-	        ),
-	    )
-        response = model.generate_content(prompt, config=generate_content_config)
+            thinking_config = types.ThinkingConfig(
+                thinking_budget=0,
+            ),
+        )
+        
+        response = client.model.generate_content(prompt, config=generate_content_config)
         return response.text.strip()
         
     except Exception as e:
