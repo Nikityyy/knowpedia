@@ -12,7 +12,7 @@ genai.configure(api_key=os.environ["GEMINI_API_KEY"])
 def generate_llm_content_google(prompt, system_prompt="Only answer with the output, no other text before or after the output."):
     try:
         model = genai.GenerativeModel('gemini-2.5-flash-lite', system_instruction=system_prompt)
-		generate_content_config = types.GenerateContentConfig(
+        generate_content_config = types.GenerateContentConfig(
 	        thinking_config = types.ThinkingConfig(
 	            thinking_budget=0,
 	        ),
@@ -526,7 +526,7 @@ def generate_content():
 		
 		Return only the Markdown-formatted article, without any extra commentary or system notes.
 		"""
-		text = generate_llm_content_google(text_prompt)
+        text = generate_llm_content_google(text_prompt)
 
         response = {
             "status": "success",
